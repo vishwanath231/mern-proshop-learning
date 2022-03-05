@@ -24,7 +24,8 @@ const CartScreen = ({ addToCart, cart, removeFromCart }) => {
   const navigate = useNavigate();
 
   const checkoutHandler = () => {
-    navigate('/login/redirect=shipping')
+    
+    navigate('/login?redirect=shipping')   
   }
 
   const {  cartItems } = cart;
@@ -91,7 +92,7 @@ const CartScreen = ({ addToCart, cart, removeFromCart }) => {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart
+  cart: state.cart,
 })
 
 export default connect(mapStateToProps, { addToCart, removeFromCart })(CartScreen);
