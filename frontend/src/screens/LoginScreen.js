@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Message from '../components/Message'
@@ -73,7 +73,7 @@ const LoginScreen = ({ login , userLogin }) => {
             ></Form.Control>
           </Form.Group>
   
-            <Button type='submit' variant='primary'>
+            <Button type='submit' variant='primary' className='my-3'>
                 Sign In
             </Button>
         </Form>
