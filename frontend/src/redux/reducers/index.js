@@ -6,10 +6,16 @@ import {
     userRegisterReducer, 
     userDetailsReducer, 
     userUpdateProfileReducer,
-    userListReducer
+    userListReducer,
+    userDeleteReducer
 } from './userReducers';
 
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyPayReducer } from './orderReducers';
+import { 
+    orderCreateReducer, 
+    orderDetailsReducer, 
+    orderPayReducer, 
+    orderListMyPayReducer 
+} from './orderReducers';
 
 export const reducers = combineReducers({
     productList: productListReducer,
@@ -20,6 +26,7 @@ export const reducers = combineReducers({
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
     userList: userListReducer,
+    userDelete: userDeleteReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
