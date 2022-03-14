@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message'
 import Loader from '../components/Loader';
-import { getOrderDetails, payOrder } from '../redux/actions/orderActions';
-import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
+import { getOrderDetails, payOrder, deliverOrder } from '../redux/actions/orderActions';
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../redux/constants/orderConstants';
 import axios from 'axios';
 
 
@@ -27,9 +27,15 @@ const OrderScreen = () => {
     const orderPay = useSelector((state) => state.orderPay)
     const { loading: loadingPay, success: successPay } = orderPay
 
+    const orderDeliver = useSelector((state) => state.orderDeliver)
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
+
     useEffect(() => {
        
-
         const addPayPalScript = async () => {
             const { data: clientId } = await axios.get('http://localhost:5000/api/config/paypal')
             const script = document.createElement('script')
@@ -43,8 +49,9 @@ const OrderScreen = () => {
           }
 
 
-        if (!order || successPay || order._id !== id) {
+        if (!order || successPay || successDeliver  || order._id !== id) {
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderDetails(id))
         }else if(!order.isPaid){
             if(!window.paypal) {
@@ -54,7 +61,7 @@ const OrderScreen = () => {
             }
         }
 
-    }, [dispatch, id, order, successPay])
+    }, [dispatch, id, order, successDeliver, successPay])
 
 
     if (!loading) {
@@ -70,6 +77,12 @@ const OrderScreen = () => {
     const successPaymenthandler = (paymentResult) => {
         
         dispatch(payOrder(id, paymentResult))
+    }
+
+
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
     }
 
     
@@ -194,7 +207,21 @@ const OrderScreen = () => {
                                 )}
                             </ListGroup.Item>
                         )}
-
+                        {loadingDeliver && <Loader />}
+                        {userInfo &&
+                            userInfo.user.isAdmin &&
+                            order.isPaid &&
+                            !order.isDelivered && (
+                                <ListGroup.Item>
+                                    <Button
+                                        type='button'
+                                        className='btn btn-block'
+                                        onClick={deliverHandler}
+                                    >
+                                         Mark As Delivered
+                                    </Button>
+                                </ListGroup.Item>
+                            )}
                     </ListGroup>
                 </Card>
             </Col>
