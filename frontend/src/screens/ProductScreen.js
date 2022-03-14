@@ -25,8 +25,7 @@ const ProductScreen = ({ listProductDetails, productDetails }) => {
     }
 
 
-    const { loading, error, product } = productDetails;
-
+    const { loading, error, product } = productDetails; 
     return (
         <>
             <Link className='btn btn-light my-3' to='/'>
