@@ -100,13 +100,14 @@ const updateProduct = asyncHandler(async (req, res) => {
         countInStock,
     } = req.body
   
+    const imageUrl = image.split('/frontend/public')[1]
     const product = await Product.findById(req.params.id)
   
     if (product) {
         product.name = name
         product.price = price
         product.description = description
-        product.image = image
+        product.image = imageUrl
         product.brand = brand
         product.category = category
         product.countInStock = countInStock
