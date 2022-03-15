@@ -6,11 +6,13 @@ import {
     getProducts, 
     deleteProduct,
     createProduct,
-    updateProduct 
+    updateProduct,
+    createProductReview 
 } from "../controllers/productController.js";
 
 
 router.route('/').get(getProducts).post(protect, admin, createProduct)
+router.route('/:id/review').post(protect, createProductReview)
 router.
 route('/:id')
 .get(getProductById)
