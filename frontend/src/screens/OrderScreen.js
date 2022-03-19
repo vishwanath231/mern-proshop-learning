@@ -35,9 +35,13 @@ const OrderScreen = () => {
 
 
     useEffect(() => {
+
+        if (!userInfo) {
+            navigate('/login')
+          }
        
         const addPayPalScript = async () => {
-            const { data: clientId } = await axios.get('http://localhost:5000/api/config/paypal')
+            const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
             script.type = 'text/javascript'
             script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
@@ -46,7 +50,7 @@ const OrderScreen = () => {
               setSdkReady(true)
             }
             document.body.appendChild(script)
-          }
+        }
 
 
         if (!order || successPay || successDeliver  || order._id !== id) {
@@ -61,7 +65,7 @@ const OrderScreen = () => {
             }
         }
 
-    }, [dispatch, id, order, successDeliver, successPay])
+    }, [dispatch, id, order, userInfo, navigate, successDeliver, successPay])
 
 
     if (!loading) {
