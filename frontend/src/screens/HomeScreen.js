@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listProducts } from '../redux/actions/productActions';
 import { connect } from 'react-redux';
+import ProductCarousel from '../components/ProductCarousel';
 
 const HomeScreen = ({ listProducts, productList }) => {
 
@@ -16,7 +17,7 @@ const HomeScreen = ({ listProducts, productList }) => {
 
     return (
         <>
-           
+           <ProductCarousel />
            <h1>Latest Products</h1>
             {   loading ? <Loader /> : 
                 error ? <Message variant='danger'>{error}</Message> : 
