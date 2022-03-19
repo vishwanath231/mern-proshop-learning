@@ -27,14 +27,7 @@ const OrderListScreen = () => {
         }
     }, [dispatch, navigate,  userInfo])
 
-    console.log(orders);
-
-    const deleteHandler = (id) => {
-        if (window.confirm('Are you sure')) {
-            // Delete
-        }
-    }
-
+    
     return (
         <>
             <h1>Orders</h1>
